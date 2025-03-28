@@ -11,20 +11,21 @@ export async function GET(request:Request) {
 
 
     const apiBase = process.env.GITLAB_URL;
-    const url = `${apiBase}/api/v4/projects/${projectId}/repository/commits?`+ new URLSearchParams({
+    const url = `${apiBase}/v4/projects/${projectId}/repository/commits?`+ new URLSearchParams({
         'ref_name':branch,
         author,
         since
     })
 
     const res = await fetch(url, {
-    
         headers: {
           'Content-Type': 'application/json',
           'PRIVATE-TOKEN': process.env.GITLAB_PRIVATE_KEY,
         },
       })
-    const data:[]= await res.json()
+
+
+    const data= await res.json()
     const r:CommitItem[] = [];
     data.forEach((d:any)=>{
         r.push({

@@ -1,7 +1,16 @@
 import CommitItem from "../api/dto/CommitItem";
 import { format } from "date-fns";
 import ProjectItem from "../api/dto/ProjectItem";
+import HeaderMain from "./components/Header/HeaderMain";
+import { TbPoint } from "react-icons/tb";
+import SelectProject from "./components/Selects/SelectProject/SelectProject";
 
+// import ProjectItem from "../api/dto/ProjectItem";
+
+interface CommitItemWDate {
+  date: string;
+  commits: Array<CommitItem>;
+}
 export default async function AppPage() {
   const res = await fetch(
     process.env.NEXT_PUBLIC_FRONTEND_URL + "/api/commits"
@@ -9,19 +18,26 @@ export default async function AppPage() {
   const resProjects = await fetch(
     process.env.NEXT_PUBLIC_FRONTEND_URL + "/api/projects"
   );
-  const commits: Array<CommitItem> = await res.json();
+
+  if (res.status != 200) {
+    return <div>erro... </div>;
+  }
+
+  const commits: Array<CommitItemWDate> = await res.json();
   const projects: Array<ProjectItem> = await resProjects.json();
+
   return (
     <div>
+      <HeaderMain />
       <div className="m-8">
-        <h1>Minhas Atividades</h1>
-        <h4>Meus commits do gitlab, transformados em tarefas:</h4>
         <div>
-       
-          <form className="card">
-            
+          <h2>Filtro</h2>
+          <div>
+            <SelectProject/>
+          </div>
+          <form>
             <div>
-            <span>Projetos:</span>
+              <span>Projetos:</span>
             </div>
             <div className="flex w-full flex-wrap gap-2 items-center p-2">
               {projects.map((project, index) => (
@@ -35,22 +51,19 @@ export default async function AppPage() {
             </div>
           </form>
         </div>
-
+        <h1 className="my-8">Atividades</h1>
         <div className="my-4">
-          {commits.map((commit, index) => (
-            <div key={index}>
-              <DataCommitSeparator
-                dateCurrentItem={commit.createdAt}
-                dateLastItem={
-                  index > 0 ? commits[index - 1].createdAt : undefined
-                }
-              />
-              <div className="ml-2">
-                <CommitCard
-                  key={commit.idCommit}
-                  commit={commit}
-                  index={index}
-                />
+          {commits.map((commitWDate, index) => (
+            <div key={index + commitWDate.date}>
+              <div className="flex items-center">
+                {" "}
+                <TbPoint className="w-8 h-8" />
+                <h4 className="font-bold font-italic">{commitWDate.date}</h4>
+              </div>
+              <div className="ps-2 m-0">
+                {commitWDate.commits.map((commit) => (
+                  <CommitCard key={commit.idCommit} commit={commit} />
+                ))}
               </div>
             </div>
           ))}
@@ -58,24 +71,6 @@ export default async function AppPage() {
       </div>
     </div>
   );
-}
-
-function DataCommitSeparator({
-  dateCurrentItem,
-  dateLastItem,
-}: {
-  dateCurrentItem: string;
-  dateLastItem?: string;
-}) {
-  const formated = format(dateCurrentItem, "dd/MM/yyyy");
-  if (!dateLastItem) {
-    return <h2>{formated}</h2>;
-  }
-  const last = format(dateLastItem, "dd/MM/yyyy");
-  if (formated != last) {
-    return <h2>{format(dateCurrentItem, "dd/MM/yyyy")}</h2>;
-  }
-  return undefined;
 }
 
 function CommitCard({ commit, index }: { commit: CommitItem; index?: number }) {
@@ -88,8 +83,8 @@ function CommitCard({ commit, index }: { commit: CommitItem; index?: number }) {
         <span className="text-xs italic text-gray-500">{commit.idCommit}</span>
       </div>
 
-      <h2 className="my-2">{commit.title}</h2>
-      <p className="ml-2">{commit.message}</p>
+      {/* <h2 className="my-2">{commit.title}</h2> */}
+      <p className="ml-2 mt-2">{commit.message}</p>
     </div>
   );
 }

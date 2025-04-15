@@ -6,7 +6,7 @@ export default async function HeaderMain() {
   );
   const profile = await req.json();
 
-  console.log("profile", profile);
+  // console.log("profile", profile);
 
   return (
     <div className="flex p-4">

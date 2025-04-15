@@ -1,9 +1,8 @@
 import CommitItem from "../api/dto/CommitItem";
 import { format } from "date-fns";
-import ProjectItem from "../api/dto/ProjectItem";
 import HeaderMain from "./components/Header/HeaderMain";
 import { TbPoint } from "react-icons/tb";
-import SelectProject from "./components/Selects/SelectProject/SelectProject";
+import FormFilterCommits from "./components/FormFilterCommits/FormFilterCommits";
 
 // import ProjectItem from "../api/dto/ProjectItem";
 
@@ -15,16 +14,13 @@ export default async function AppPage() {
   const res = await fetch(
     process.env.NEXT_PUBLIC_FRONTEND_URL + "/api/commits"
   );
-  const resProjects = await fetch(
-    process.env.NEXT_PUBLIC_FRONTEND_URL + "/api/projects"
-  );
 
   if (res.status != 200) {
     return <div>erro... </div>;
   }
 
   const commits: Array<CommitItemWDate> = await res.json();
-  const projects: Array<ProjectItem> = await resProjects.json();
+  // const projects: Array<ProjectItem> = await resProjects.json();
 
   return (
     <div>
@@ -32,24 +28,9 @@ export default async function AppPage() {
       <div className="m-8">
         <div>
           <h2>Filtro</h2>
-          <div>
-            <SelectProject/>
+          <div className="my-2">
+            <FormFilterCommits/>
           </div>
-          <form>
-            <div>
-              <span>Projetos:</span>
-            </div>
-            <div className="flex w-full flex-wrap gap-2 items-center p-2">
-              {projects.map((project, index) => (
-                <div
-                  key={project.name + index}
-                  className="card p-1 px-4 rounded flex items-center"
-                >
-                  <p className="text-xs">{project.name}</p>
-                </div>
-              ))}
-            </div>
-          </form>
         </div>
         <h1 className="my-8">Atividades</h1>
         <div className="my-4">

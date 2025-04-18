@@ -5,7 +5,6 @@ import EventItem from "../dto/EventItem";
 export async function GET(request: NextRequest) {
   const GITLAB_API = process.env.GITLAB_URL;
   const PRIVATE_TOKEN = process.env.GITLAB_PRIVATE_KEY;
-  const USER_ID = 10;
   const since = request.nextUrl.searchParams.get("since") || "2025-01-01";
 
   const events: EventItem[] = [];
@@ -14,8 +13,19 @@ export async function GET(request: NextRequest) {
   let hasMore = true;
 
   try {
+
+    const urlProfile = `${GITLAB_API}/v4/user`;
+    const resProfile = await fetch(urlProfile, {
+      headers: {
+        'Content-Type': 'application/json',
+        'PRIVATE-TOKEN': process.env.GITLAB_PRIVATE_KEY,
+      },
+    });
+    const profile = await resProfile.json();
+
+
     while (hasMore) {
-      const url = `${GITLAB_API}/v4/users/${USER_ID}/events?` +
+      const url = `${GITLAB_API}/v4/users/${profile.id}/events?` +
         new URLSearchParams({
           action: "pushed",
           after: since,

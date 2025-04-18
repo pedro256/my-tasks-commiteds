@@ -1,7 +1,6 @@
 
 import { format } from "date-fns";
 import HeaderMain from "./components/Header/HeaderMain";
-import FormFilterCommits from "./components/FormFilterCommits/FormFilterCommits";
 import EventItem from "../api/dto/EventItem";
 import ProjectItem from "../api/dto/ProjectItem";
 import { ReactNode } from "react";
@@ -48,6 +47,7 @@ export default async function AppPage() {
   const res_projetos = await fetch(
     process.env.NEXT_PUBLIC_FRONTEND_URL + "/api/projects"
   )
+  
 
   if (res.status != 200) {
     return <div>erro... </div>;

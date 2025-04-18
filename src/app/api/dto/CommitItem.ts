@@ -6,4 +6,6 @@ export default interface CommitItem{
     author:string,
     authorEmail:string,
     webUrl:string,
+    project:string;
+    branch:string;
 }

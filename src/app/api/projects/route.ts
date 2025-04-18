@@ -6,7 +6,8 @@ export async function GET() {
         const apiBase = process.env.GITLAB_URL;
         const url = `${apiBase}/v4/projects?` + new URLSearchParams({
             membership: "true",
-            simple: 'true'
+            simple: 'true',
+            per_page:"100"
         })
     
         const res = await fetch(url, {

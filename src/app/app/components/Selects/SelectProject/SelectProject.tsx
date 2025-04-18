@@ -38,5 +38,4 @@ export default function SelectProject() {
       label="Select Options"
     />
   );
-  // return <Input label="Pedro"/>
 }

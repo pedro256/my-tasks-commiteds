@@ -70,7 +70,7 @@ async function listProjectsWithLatestBranch(): Promise<{
 
 export async function GET(request: NextRequest) {
   try {
-    const author = "pedromartins@lampp-it.com.br";
+    const author = "your_mail@mail.cm";
     const since = "2025-03-18T00:00:00";
     const apiBase = process.env.GITLAB_URL!;
     const token = process.env.GITLAB_PRIVATE_KEY!;

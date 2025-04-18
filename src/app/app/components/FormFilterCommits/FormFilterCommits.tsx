@@ -15,7 +15,7 @@ interface ProjectFilter {
   branch?: string;
 }
 export default function FormFilterCommits() {
-  const {  handleSubmit } = useForm<TModel>();
+  const { handleSubmit } = useForm<TModel>();
   const [optsProjects, setOptsProjects] = useState<Array<ISelectOption>>();
 
   /**
@@ -57,7 +57,7 @@ export default function FormFilterCommits() {
       <div className="grid grid-cols-2 gap-4">
         <div className="col-span-1">
           <Select
-          label="Projetos"
+            label="Projetos"
             options={optsProjects}
             onSelect={(vl: any) => {
               setSlcPrjs([
@@ -71,18 +71,18 @@ export default function FormFilterCommits() {
           />
         </div>
         <div className="col-span-1">
-            <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2">
             {slcPrjs.map((prj) => (
-            <div key={prj.name} className="p-2 border-le rounded h-auto">
-              <p> {prj.name}</p>
-              <span>{prj.branch}</span>
-            </div>
-          ))}
-            </div>
-          
+              <div key={prj.name} className="p-2 border rounded h-auto">
+                <p> {prj.name}</p>
+                <span>{prj.branch}</span>
+              </div>
+            ))}
+          </div>
+
         </div>
       </div>
-      <button className="" type="submit">BUSCAR</button>
+      <button className="border rounded p-2 m-2" type="submit">BUSCAR</button>
     </form>
   );
 }

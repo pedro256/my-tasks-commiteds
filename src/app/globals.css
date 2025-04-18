@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #171717;
+  --foreground: #ffffff;
   --le:#21162f;
 }
 
@@ -28,9 +28,7 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
-.card{
-  background-color: var(--background-card);
-}
+
 
 p {
   font-size: 1rem;

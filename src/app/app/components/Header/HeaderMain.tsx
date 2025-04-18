@@ -9,7 +9,7 @@ export default async function HeaderMain() {
   // console.log("profile", profile);
 
   return (
-    <div className="flex p-4">
+    <div className="flex p-4 bg-black text-white">
       <div className="flex items-center gap-2">
         <Image
           className="rounded-full"
@@ -23,7 +23,7 @@ export default async function HeaderMain() {
           <span>
           {profile.username}
           </span>
-          <span className="opacity-30"> ({profile.email})</span>
+          <span className="opacity-50"> ({profile.email})</span>
         </div>
       </div>
     </div>

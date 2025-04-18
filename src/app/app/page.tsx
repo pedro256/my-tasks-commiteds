@@ -56,7 +56,7 @@ export default async function AppPage() {
 
 function CommitCard({ commit, index }: { commit: CommitItem; index?: number }) {
   return (
-    <div className="my-4 p-2 px-4 card rounded" key={commit.idCommit + index}>
+    <div className="my-1 py-2 px-4 card border rounded" key={commit.idCommit + index}>
       <div className="flex gap-2">
         <span className="text-xs">
           criado em :{format(commit.createdAt, "dd/MM/yyyy HH:mm")}

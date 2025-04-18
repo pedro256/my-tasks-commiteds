@@ -48,24 +48,24 @@ export default function Select({
             backgroundColor: state.isSelected
               ? "gray"
               : state.isFocused
-              ? "#222"
-              : "black",
-            color: "white",
+              ? "gray"
+              : "white",
+            color: "black",
             cursor: "pointer",
           }),
           control: (base, state) => ({
             ...base,
             borderColor: state.isFocused ? "gray" : "#ccc",
-            backgroundColor: "#111",
-            color: "white",
+            backgroundColor: "white",
+            color: "black",
           }),
           singleValue: (base) => ({
             ...base,
-            color: "white",
+            color: "black",
           }),
           input: (base) => ({
             ...base,
-            color: "white",
+            color: "black",
           }),
         }}
         options={options}
